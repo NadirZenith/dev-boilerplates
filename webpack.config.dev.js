@@ -1,11 +1,7 @@
 var webpack = require('webpack');
-var cssnext = require('postcss-cssnext');
-var postcssFocus = require('postcss-focus');
-var postcssReporter = require('postcss-reporter');
-// const path = require("path");
 
 module.exports = {
-  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
   entry: {
     app: [
       'webpack-hot-middleware/client',
@@ -13,15 +9,14 @@ module.exports = {
       'react-hot-loader/patch',
       './client/index.js',
     ],
-    // vendor: ['react', 'react-dom']
+    vendor: ['react', 'react-dom']
   },
 
-    output: {
-      path: __dirname,
-      filename: 'app.js',
-      publicPath: 'http://0.0.0.0:8000/',
-    },
-
+  output: {
+    path: __dirname,
+    filename: 'app.js',
+    publicPath: 'http://0.0.0.0:8000/',
+  },
 
   resolve: {
     extensions: [
@@ -29,17 +24,10 @@ module.exports = {
     ],
     modules: ['client', 'node_modules']
   },
+
   module: {
     loaders: [
       {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
-      }, {
-        test: /\.css$/,
-        include: /node_modules/,
-        loaders: ['style-loader', 'css-loader'],
-      }, {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
         loader: 'babel-loader',
@@ -52,6 +40,7 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
@@ -64,9 +53,6 @@ module.exports = {
         CLIENT: JSON.stringify(true),
         'NODE_ENV': JSON.stringify('development'),
       }
-    }),
-
-   require('postcss-cssnext')
+    })
   ],
-
 };
