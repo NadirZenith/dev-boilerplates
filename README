@@ -14,15 +14,20 @@ scripts
   - server:start -> starts production server
 
 dependencies:
-  - nodemon ->
+  - nodemon -> restart node on failure and watches for changes (see nodemon.js)
   - cross-env -> standard environment variables between OS
   - express
   - morgan -> express midleware for logs
   - body-parser -> express midleware for body parsing
+  - react
+  - react-dom
 
 
 devDependencies
   - webpack               -> pack server for production, loaders
+  - webpack-dev-middleware -> middleware to create dev server
+  - webpack-hot-middleware -> meddleware hot reloading of modules dev server
+  - react-hot-loader      -> Tweak React components in real time(<AppContainer>)
   - babel-core
   - babel-loader
   - babel-cli             -> compile server es6
@@ -35,3 +40,6 @@ devDependencies
   - eslint-config-airbnb
   - eslint-plugin-import
   - eslint-plugin-jsx-a11y
+
+  - style-loader
+  - css-loader

@@ -8,6 +8,26 @@ import Express from 'express'
 // Express --------------------------------------------
 const app = Express()
 
+// ------ dev
+// Webpack Requirements
+import webpack from 'webpack';
+import config from '../webpack.config.client';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
+// Run Webpack dev server in development mode
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(config);
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
+
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+}
+
 // ---------- midlewares ------------------------------
 import morgan from 'morgan' // express midleware log
 import bodyParser from 'body-parser' // express midleware request parser
