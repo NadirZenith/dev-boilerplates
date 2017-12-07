@@ -6,7 +6,7 @@ import React, { Component, PropTypes } from 'react';
 // Import Components
 import Helmet from 'react-helmet';
 // import DevTools from './components/DevTools';
-// import Header from './components/Header/Header';
+import Header from './components/Header/Header';
 // import Footer from './components/Footer/Footer';
 
 export class App extends Component {
@@ -19,9 +19,7 @@ export class App extends Component {
     this.setState({isMounted: true}); // eslint-disable-line
   }
 
-  // clickAlert = () => {
-  //   this.props.dispatch(toggleAddPost());
-  // };
+  clickAlert = () => alert('alert')
 
   render() {
     return (
@@ -43,9 +41,9 @@ export class App extends Component {
               },
             ]}
           />
-          {/* <Header
+          <Header
             onClickAlert={this.clickAlert}
-          /> */}
+          />
           <div className="styles.container">
             {/* {this.props.children} */}
             xau pa
