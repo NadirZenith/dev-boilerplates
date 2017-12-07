@@ -15,6 +15,7 @@ module.exports = {
   node: {
     __filename: true,
     __dirname: true,
+    fs: 'empty'
   },
 
   resolve: {
@@ -34,7 +35,7 @@ module.exports = {
         query: {
           presets: [
             'react',
-            'es2015',
+            'env',
             'stage-0',
           ],
           plugins: [
