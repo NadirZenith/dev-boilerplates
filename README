@@ -43,3 +43,8 @@ devDependencies
   - eslint-config-airbnb
   - eslint-plugin-import
   - eslint-plugin-jsx-a11y
+
+  - css-loader    -> allow import .CSS
+  - style-loader  -> loads styles from css
+  - url-loader    -> used with file loader *
+  - file-loader   -> *

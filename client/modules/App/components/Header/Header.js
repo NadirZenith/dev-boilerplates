@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // Import Style
 // import styles from './Header.css';
-// import './Header.css';
+import './Header.css';
 
-export function Header(props, context) {
+export function Header(props) {
   // const languageNodes = props.intl.enabledLanguages.map(
   //   lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>
   // );
@@ -24,7 +24,7 @@ export function Header(props, context) {
   //     </div>
   //   </div>
   // );
-
+  // console.log(styles)
   return (
     <div className='header'>
       <div className='content'>
@@ -32,6 +32,8 @@ export function Header(props, context) {
           <Link to="/" >intlSiteTitle</Link>
         </h1>
             <a className='add-post-button' href="#" onClick={props.onClickAlert}>intlClick</a>
+            <Link to="/hello" >intlHelloLink</Link>
+
       </div>
     </div>
   );
@@ -46,3 +48,4 @@ export function Header(props, context) {
 // };
 
 export default Header;
+// export default withRouter(Header);

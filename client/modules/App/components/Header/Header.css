@@ -2,6 +2,7 @@
   background: #eee url('../../header-bk.png') center;
   background-size: cover;
   border-bottom: 1px solid #ccc;
+  background-color: red;
 }
 
 .content {
@@ -20,7 +21,7 @@
 
 .site-title a {
   text-decoration: none;
-  color: #FFF;
+  color: blue;
 }
 
 .add-post-button {
