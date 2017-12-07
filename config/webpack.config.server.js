@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = {
 
-  entry: path.resolve(__dirname, 'server/server.js'),
+  entry: path.resolve(__dirname, './../server/server.js'),
 
   output: {
     path: __dirname + '/dist/',
@@ -40,7 +40,7 @@ module.exports = {
           plugins: [
             [
               'babel-plugin-webpack-loaders', {
-                'config': './webpack.config.babel.js',
+                'config': './config/webpack.config.babel.js',
                 "verbose": false
               }
             ]

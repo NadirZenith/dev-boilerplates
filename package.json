@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "server:watch": "cross-env NODE_ENV=development BABEL_DISABLE_CACHE=1 nodemon index.js",
-    "server:build": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
-    "client:build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "server:build": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.server.js",
+    "client:build": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.js",
     "server:start": "cross-env NODE_ENV=production node index.js"
   },
   "dependencies": {

@@ -8,7 +8,7 @@ const app = Express()
 // ------ dev
 // Webpack Requirements
 import webpack from 'webpack';
-import config from '../webpack.config.dev';
+import config from '../config/webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
