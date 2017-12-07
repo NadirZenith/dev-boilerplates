@@ -34,7 +34,7 @@ devDependencies
   - babel-core
   - babel-loader
   - babel-cli             -> compile server es6
-  - babel-preset-es2015   -> preset for babel ?
+  - babel-preset-env   -> preset for babel ?
   - babel-react           -> preset react jsx
   - babel-stage-0         -> next generation js ?
   - babel-plugin-webplack-loaders -> link babel to webpack
