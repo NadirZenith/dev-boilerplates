@@ -1,7 +1,10 @@
+var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+
+const BASE_PATH = path.resolve(__dirname, './../')
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -37,7 +40,7 @@ module.exports = {
   },
 
   output: {
-    path: __dirname + '/dist/client/',
+    path: BASE_PATH + '/dist/client/',
     filename: '[name].[chunkhash].js',
     publicPath: '/'
   },

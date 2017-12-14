@@ -1,12 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 
+const BASE_PATH = path.resolve(__dirname, './../')
+
 module.exports = {
 
-  entry: path.resolve(__dirname, './../server/server.js'),
+  entry: BASE_PATH + '/server/server.js',
 
   output: {
-    path: __dirname + '/dist/',
+    path: BASE_PATH + '/dist/',
     filename: 'server.bundle.js',
   },
 
