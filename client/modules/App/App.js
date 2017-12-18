@@ -1,5 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-
+import {
+    BrowserRouter as Router,
+    Link,
+    Route,
+    Switch,
+} from 'react-router-dom';
 // Import Style
 // import styles from './App.css';
 
@@ -7,7 +12,7 @@ import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 // import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
-// import Footer from './components/Footer/Footer';
+import Footer from './components/Footer/Footer';
 
 export class App extends Component {
   constructor(props) {
@@ -45,10 +50,13 @@ export class App extends Component {
             onClickAlert={this.clickAlert}
           />
           <div className="styles.container">
+              {/*<Link to="/">Home</Link>{' '}*/}
+              <Link to={{pathname: '/login'}}>LogIn</Link>{' '}
+              <Link to="/signup">SignUp</Link>
             {/* {this.props.children} */}
-            xau pa
+            {/*hola pa*/}
           </div>
-          {/* <Footer /> */}
+           <Footer />
         </div>
       </div>
     );

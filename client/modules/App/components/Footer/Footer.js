@@ -1,10 +1,13 @@
 import React from 'react';
 
 // Import Style
-// import styles from './Footer.css';
-
+import styles from './Footer.css';
 // Import Images
-// import bg from '../../header-bk.png';
+import bg from '../../header-bk.png';
+console.log('--------------------')
+// console.log(styles)
+console.log(bg)
+console.log('--------------------')
 
 export function Footer() {
   return (

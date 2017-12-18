@@ -15,10 +15,6 @@ router.route('/signup').get( (req, res) => {
     res.send(`
         <form action="/signup" method="post">
             ${req.flash('error')}
-            <!--<div>-->
-                <!--<label>Username:</label>-->
-                <!--<input type="text" name="username" value=""/>-->
-            <!--</div>-->
             <div>
                 <label>Email:</label>
                 <input type="email" name="email"/>
