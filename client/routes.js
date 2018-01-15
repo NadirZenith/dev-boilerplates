@@ -4,7 +4,7 @@ import App from './modules/App/App';
 // import Hello from './modules/Hello/Hello';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import type {ContextRouter} from 'react-router-dom'
-import SignUp from './modules/SignUp/SignUp'
+// import SignUp from './modules/SignUp/SignUp'
 
 // require.ensure polyfill for node
 // if (typeof require.ensure !== 'function') {
@@ -34,7 +34,7 @@ export default(
             {/*<Route path="/login" component={LoginPage} />*/}
             {/*<Route path="/register" component={RegisterPage} />*/}
 
-            <Route exact path='/signup' component={SignUp}/>
+            {/*<Route exact path='/signup' component={SignUp}/>*/}
 
             <Route exact path='/login' render={() => (
                     <div>Login</div>

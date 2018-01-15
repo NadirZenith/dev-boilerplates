@@ -13,7 +13,7 @@ render(
   <AppContainer>
     <App />
   </AppContainer>,
-  mountApp
+  mountApp,
 );
 
 // For hot reloading of react components
@@ -26,7 +26,7 @@ if (module.hot) {
       <AppContainer>
         <NextApp />
       </AppContainer>,
-      mountApp
+      mountApp,
     );
   });
 }
