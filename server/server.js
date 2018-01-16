@@ -65,6 +65,7 @@ mongoose.Promise = global.Promise;
 
 // session --------------------------------------------
 const MongoStore = require('connect-mongo')(session);
+
 const sess = {
   secret: 'keyboard cat',
   resave: false,
@@ -85,7 +86,8 @@ app.use(session(sess));
 app.use(flash());
 
 // security -------------------------------------------
-require('./app/config/passport')
+require('./app/config/passport');
+
 app.use(passport.initialize());
 app.use(passport.session());
 
