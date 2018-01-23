@@ -2,7 +2,7 @@
  * Root Component
  */
 import React from 'react';
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 // Import Routes
 import routes from './routes';
@@ -15,7 +15,7 @@ export default function App(props) {
     <BrowserRouter>
       {routes}
     </BrowserRouter>
-  )
+  );
 }
 
 // App.propTypes = {

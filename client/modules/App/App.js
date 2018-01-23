@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import {
-    BrowserRouter as Router,
-    Link,
-    Route,
-    Switch,
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Switch,
 } from 'react-router-dom';
 // Import Style
 // import styles from './App.css';
@@ -24,12 +24,15 @@ export class App extends Component {
     this.setState({isMounted: true}); // eslint-disable-line
   }
 
-  clickAlert = () => alert('alert')
+  clickAlert() {
+    alert('alert');
+  }
 
   render() {
     return (
       <div>
-        {/* {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />} */}
+        {/* {this.state.isMounted && !window.devToolsExtension
+        && process.env.NODE_ENV === 'development' && <DevTools />} */}
         <div>
           <Helmet
             title="MERN Starter - Blog App"
@@ -50,13 +53,13 @@ export class App extends Component {
             onClickAlert={this.clickAlert}
           />
           <div className="styles.container">
-              {/*<Link to="/">Home</Link>{' '}*/}
-              <Link to={{pathname: '/login'}}>LogIn</Link>{' '}
-              <Link to="/signup">SignUp</Link>
+            {/* <Link to="/">Home</Link>{' '} */}
+            <Link to={{ pathname: '/login' }}>LogIn</Link>{' '}
+            <Link to="/signup">SignUp</Link>
             {/* {this.props.children} */}
-            {/*hola pa*/}
+            {/* hola pa */}
           </div>
-           <Footer />
+          <Footer />
         </div>
       </div>
     );

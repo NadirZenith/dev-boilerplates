@@ -4,12 +4,11 @@ const router = new Router();
 
 // ------------------------------------
 router.route('*').get((req, res) => {
-
   const assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 
-    const menu = req.isAuthenticated()
-        ? '<a href="/me">Me</a>'
-        : '<a href="/login">LogIn</a>|<a href="/signup">SignUp</a>';
+  const menu = req.isAuthenticated()
+    ? '<a href="/me">Me</a>'
+    : '<a href="/login">LogIn</a>|<a href="/signup">SignUp</a>';
 
   res.send(`
     <!doctype html>

@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 // import styles from './Header.css';
 import './Header.css';
 
-export function Header(props) {
+export default function Header(props) {
   // const languageNodes = props.intl.enabledLanguages.map(
   //   lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>
   // );
@@ -26,14 +26,18 @@ export function Header(props) {
   // );
   // console.log(styles)
   return (
-    <div className='header'>
-      <div className='content'>
-        <h1 className='site-title'>
+    <div className="header">
+      <div className="content">
+        <h1 className="site-title">
           <Link to="/" >intlSiteTitle</Link>
         </h1>
-            <a className='add-post-button' href="#" onClick={props.onClickAlert}>intlClick</a>
-            <Link to="/hello" >intlHelloLink</Link>
-
+        <button
+          className="add-post-button"
+          href="#"
+          onClick={props.onClickAlert}
+        >intlClick
+        </button>
+        <Link to="/hello" >intlHelloLink</Link>
       </div>
     </div>
   );
@@ -47,5 +51,5 @@ export function Header(props) {
 //   onClickAlert: PropTypes.func.isRequired,
 // };
 
-export default Header;
+// export default Header;
 // export default withRouter(Header);

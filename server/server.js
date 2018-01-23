@@ -16,7 +16,6 @@ import config from '../config/webpack.config.dev';
 import serverConfig from './config';
 import mainRoutes from './routes/main.routes';
 
-
 // Express --------------------------------------------
 const app = Express();
 
@@ -36,7 +35,8 @@ app.use(bodyParser.json());
 // ------ dev
 // Webpack Requirements
 // Run Webpack dev server in development mode
-if (process.env.NODE_ENV === 'development') {
+if (serverConfig.env === 'development') {
+  console.log(serverConfig);
   const compiler = webpack(config);
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,

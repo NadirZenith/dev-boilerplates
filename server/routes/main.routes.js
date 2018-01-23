@@ -6,20 +6,22 @@ import admin from './admin';
 import home from './home';
 import profile from './profile';
 import dev from './dev';
-import {checkAuthentication, checkAuthenticationArea }from '../utils/authentication';
+import {
+  checkAuthentication, checkAuthenticationArea,
+} from '../utils/authentication';
 
 const router = new Router();
 
-router.use(security)
+router.use(security);
 
-router.use('/api', api)
-router.use('/admin', checkAuthenticationArea('admin'), admin)
-router.use('/me', checkAuthentication, profile)
-router.use('/dev', checkAuthenticationArea('dev'), dev)
+router.use('/api', api);
+router.use('/admin', checkAuthenticationArea('admin'), admin);
+router.use('/me', checkAuthentication, profile);
+router.use('/dev', checkAuthenticationArea('dev'), dev);
 
-router.use('/', home)
+router.use('/', home);
 
 // handle error pages
-router.use(error)
+router.use(error);
 
 export default router;

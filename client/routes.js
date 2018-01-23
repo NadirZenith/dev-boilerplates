@@ -2,8 +2,8 @@
 import React from 'react';
 import App from './modules/App/App';
 // import Hello from './modules/Hello/Hello';
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
-import type {ContextRouter} from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+// import type {ContextRouter} from 'react-router-dom'
 // import SignUp from './modules/SignUp/SignUp'
 
 // require.ensure polyfill for node
@@ -26,23 +26,32 @@ import type {ContextRouter} from 'react-router-dom'
 // react-router setup with code-splitting
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
 export default(
-    <div>
-        <Route exact path='/' component={App}/>
-        <Switch>
+  <div>
+    <Route path="/" component={App} />
+    <Switch>
 
-            {/*<Route exact path='/hello' component={Hello}/>*/}
-            {/*<Route path="/login" component={LoginPage} />*/}
-            {/*<Route path="/register" component={RegisterPage} />*/}
+      {/* <Route path="/login" component={LoginPage} /> */}
+      {/* <Route path="/register" component={RegisterPage} /> */}
 
-            {/*<Route exact path='/signup' component={SignUp}/>*/}
-
-            <Route exact path='/login' render={() => (
-                    <div>Login</div>
+      {/* <Route exact path='/signup' component={SignUp}/> */}
+      {/*<Route exact path="/hello" component={Hello} />*/}
+      <Route exact path="/hello" render={() => ( <h2>hello</h2> )} />
+      <Route
+        exact
+        path="/signup"
+        render={() => (
+          <h2>SignUp</h2>
                 )}
-            />
+      />
+      <Route
+        exact
+        path="/login"
+        render={() => (
+          <h2>Login</h2>
+                )}
+      />
 
-
-            {/*<Route component={() => <h1>Page not found, sorry!</h1>}/>*/}
-        </Switch>
-    </div>
+      <Route component={() => <h1>Page not found, sorry!</h1>} />
+    </Switch>
+  </div>
 );

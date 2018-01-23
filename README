@@ -1,4 +1,8 @@
 
+ideas from:
+    - create-react-app apps
+    - mern-starter
+
 files
   - .babelrc -> babel configuration file
   - .eslintignore -> eslint ignore rules
