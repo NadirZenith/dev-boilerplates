@@ -3,10 +3,8 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-
 // define the schema for our user model
 const userSchema = mongoose.Schema({
-
   local: {
     username: { type: String, unique: true, required: false },
     email: { type: String, unique: true, required: true },

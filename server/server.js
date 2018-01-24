@@ -59,7 +59,7 @@ if (serverConfig.env === 'development') {
 
 
 // db --------------------------------------------
-mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
+mongoose.connect(serverConfig.db.uri, { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 

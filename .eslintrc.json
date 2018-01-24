@@ -4,7 +4,7 @@
       "react/jsx-filename-extension": [1, {
         "extensions": [".js", ".jsx"]
       }],
-      "max-len": ["error", { "ignoreTrailingComments": true }]
+      "max-len": ["error", { "ignoreTrailingComments": true, "ignoreTemplateLiterals": true }]
     },
     "env": {
       "es6": true,

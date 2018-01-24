@@ -16,7 +16,7 @@ router.use(security);
 
 router.use('/api', api);
 router.use('/admin', checkAuthenticationArea('admin'), admin);
-router.use('/me', checkAuthentication, profile);
+// router.use('/me', checkAuthentication, profile);
 router.use('/dev', checkAuthenticationArea('dev'), dev);
 
 router.use('/', home);

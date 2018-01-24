@@ -1,24 +1,21 @@
 import { Router } from 'express';
-import error from './error';
-import User from '../app/model/user.js'
+import User from '../app/model/user';
 
 const router = new Router();
 
 const getMenu = (req) => {
-    let menu = `
+  let menu = `
         <a href="${req.baseUrl}/edit">Edit</a> | <a href="/logout">Logout</a> | <a href="/">Home</a>
     `;
-    if(true){
-        menu += ' | <a href="/admin/status">Admin</a>';
-    }
+  if (true) {
+    menu += ' | <a href="/admin/status">Admin</a>';
+  }
 
-    return menu
-}
+  return menu;
+};
 
 router.route('/').get((req, res) => {
-
-
-    res.send(`
+  res.send(`
         ${getMenu(req)}<br>
         ${req.flash('error')}<br>
         Hello ${req.user.username ? req.user.username : ''}!
@@ -26,14 +23,10 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/edit').get((req, res) => {
+  User.findOne({ _id: req.user.id }, (err, user) => {
+    if (err) { return res.send('error fetching user'); }
 
-
-
-    User.findOne({'_id': req.user.id}, (err, user) => {
-        if (err)
-            return res.send(`error fetching user`)
-
-        res.send(`
+    res.send(`
             ${getMenu(req)}<br>
             ${req.flash('error')}<br>
             <form method="post">
@@ -59,21 +52,18 @@ router.route('/edit').get((req, res) => {
                 </div>
             </form>
         `);
-
-    });
+  });
 });
 
 
 router.route('/edit').post((req, res) => {
+  User.findOne({ _id: req.user.id }, (err, user) => {
+    if (err) { return res.send('error fetching user'); }
 
-    User.findOne({'_id': req.user.id}, (err, user) => {
-        if (err)
-            return res.send(`error fetching user`)
-
-        user.local.username = req.body.username
-        user.save()
-        req.flash('error', 'Data saved')
-        res.redirect(req.baseUrl );
-    });
+    user.local.username = req.body.username;
+    user.save();
+    req.flash('error', 'Data saved');
+    res.redirect(req.baseUrl);
+  });
 });
 export default router;
