@@ -6,11 +6,10 @@ const router = new Router();
 
 // Express 404 -------------------------------------
 router.use((req, res, next) => {
-  res.status(404).send(base('', 'Sorry can\'t find that!'));
+  res.status(404).send(base('', '<p>404<br>Sorry can\'t find that!</p>'));
 
-  // const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-  // logger('error_404').log(`Not found:  ${fullUrl}`);
-  logger('error_404').log(`Not found:  ${req.protocol}://${req.get('host')}${req.originalUrl}`);
+  const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+  logger('error_404').log(`Not found:  ${fullUrl}`);
 });
 
 // Express 500 -------------------------------------
