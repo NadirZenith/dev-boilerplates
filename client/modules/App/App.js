@@ -24,7 +24,7 @@ export class App extends Component {
     this.setState({isMounted: true}); // eslint-disable-line
   }
 
-  clickAlert() {
+  clickAlert = () => {
     alert('alert');
   }
 

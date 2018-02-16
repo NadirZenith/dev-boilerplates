@@ -25,33 +25,33 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 // react-router setup with code-splitting
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
-export default(
-  <div>
-    <Route path="/" component={App} />
-    <Switch>
+const Routes = (
+    <div>
+      <Route path="/" component={App} />
+      <Switch>
+        {/* <Route path="/login" component={LoginPage} /> */}
+        {/* <Route path="/register" component={RegisterPage} /> */}
+        {/* <Route exact path='/signup' component={SignUp}/> */}
+        {/* <Route exact path="/hello" component={Hello} /> */}
+        <Route exact path="/hello" render={() => (<h2>hello</h2>)} />
+        <Route
+          exact
+          path="/signup"
+          render={() => (
+            <h2>SignUp</h2>
+                  )}
+        />
+        <Route
+          exact
+          path="/login"
+          render={() => (
+            <h2>Login</h2>
+                  )}
+        />
 
-      {/* <Route path="/login" component={LoginPage} /> */}
-      {/* <Route path="/register" component={RegisterPage} /> */}
+        <Route component={() => <h1>Page not found, sorry!</h1>} />
+      </Switch>
+    </div>
+  );
 
-      {/* <Route exact path='/signup' component={SignUp}/> */}
-      {/*<Route exact path="/hello" component={Hello} />*/}
-      <Route exact path="/hello" render={() => ( <h2>hello</h2> )} />
-      <Route
-        exact
-        path="/signup"
-        render={() => (
-          <h2>SignUp</h2>
-                )}
-      />
-      <Route
-        exact
-        path="/login"
-        render={() => (
-          <h2>Login</h2>
-                )}
-      />
-
-      <Route component={() => <h1>Page not found, sorry!</h1>} />
-    </Switch>
-  </div>
-);
+export default Routes;
