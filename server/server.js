@@ -15,6 +15,7 @@ import bodyParser from 'body-parser'; // express middleware request parser
 import config from '../config/webpack.config.dev';
 import serverConfig from './config';
 import mainRoutes from './routes/main.routes';
+import User from "./app/model/user"
 
 // Express --------------------------------------------
 const app = Express();
@@ -91,7 +92,34 @@ app.use(session(sess));
 app.use(flash());
 
 // security -------------------------------------------
-require('./app/config/passport');
+// require('./app/config/passport');
+// load passport strategies
+import localFormSignupStrategy from './passport/local-form-signup'
+import localFormLoginStrategy from './passport/local-form-login'
+// const localLoginStrategy = require('./server/passport/local-login');
+passport.use('local-form-signup', localFormSignupStrategy);
+passport.use('local-form-login', localFormLoginStrategy);
+// passport.use('local-login', localLoginStrategy);
+
+passport.serializeUser((user, done) => {
+  // done(null, user.local.email);
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findOne({ _id: id }, (err, user) => {
+    if (err) {
+      return done(err);
+    }
+    //
+    if (!user) {
+      // return done (true, false)
+      return done('no match serializing');
+    }
+
+    return done(null, { username: user.local.username, id: user._id });
+  });
+});
 
 app.use(passport.initialize());
 app.use(passport.session());

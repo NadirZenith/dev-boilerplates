@@ -1,5 +1,6 @@
 Road-map:
-    - add react-md
+    - adding backend-auth jwt
+    - added react-md with sass loader (yarn run watch-css)
 
 
 ideas from:

@@ -18,7 +18,7 @@ router.route('/').get((req, res) => {
   res.send(`
         ${getMenu(req)}<br>
         ${req.flash('error')}<br>
-        Hello ${req.user.username ? req.user.username : ''}!
+        Hello ${req.user.username ? req.user.username : ''}! (${req.user.id ? req.user.id : 'n/a'})
     `);
 });
 
@@ -57,12 +57,12 @@ router.route('/edit').get((req, res) => {
 
 
 router.route('/edit').post((req, res) => {
+  // @todo handle duplicate username when saving
   User.findOne({ _id: req.user.id }, (err, user) => {
     if (err) { return res.send('error fetching user'); }
-
     user.local.username = req.body.username;
     user.save();
-    req.flash('error', 'Data saved');
+    req.flash('error', 'Data saved ' + req.body.username);
     res.redirect(req.baseUrl);
   });
 });
