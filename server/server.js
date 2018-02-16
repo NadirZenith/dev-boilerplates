@@ -31,20 +31,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-
 // ------ dev
 // Webpack Requirements
 // Run Webpack dev server in development mode
 if (serverConfig.env === 'development') {
   console.log(serverConfig);
-  const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath,
-  }));
-  app.use(webpackHotMiddleware(compiler));
-
-  // cors
+  // cors, before other middleware to avoid cors errors
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -53,6 +45,14 @@ if (serverConfig.env === 'development') {
     );
     next();
   });
+
+  const compiler = webpack(config);
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath,
+  }));
+  app.use(webpackHotMiddleware(compiler));
+
 } else {
   app.use(Express.static('dist/client'));
 }

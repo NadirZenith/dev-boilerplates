@@ -1,3 +1,6 @@
+Road-map:
+    - add react-md
+
 
 ideas from:
     - create-react-app apps
@@ -21,13 +24,27 @@ scripts
   - server:start -> starts production server
 
 dependencies:
+  server:
   - nodemon -> restart node on failure and watches for changes (see nodemon.js)
   - cross-env -> standard environment variables between OS
   - express
-  - morgan -> express midleware for logs
-  - body-parser -> express midleware for body parsing
+  - express-session
+  - passport -> express middleware for auth
+  - passport-local -> passport local auth
+  - morgan -> express middleware for logs
+  - body-parser -> express middleware for body parsing
+  - cookie-parser -> express middleware for cookie parsing
+  - mongoose
+  - connect-mongo
+  - connect-flash
+
+
+  client:
   - react
-  - react-dom
+  - react-dom -> dom manipulation
+  - react-router-dom -> router for dom
+  - react-helmet -> seo metas
+  - react-md -> material design
 
 
 devDependencies
