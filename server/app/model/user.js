@@ -42,5 +42,19 @@ userSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.local.password);
 };
 
+
+
+/**
+ * Compare the passed password with the value in the database. A model method.
+ *
+ * @param {string} password
+ * @returns {object} callback
+ */
+userSchema.methods.comparePassword = function comparePassword(password, callback) {
+// UserSchema.methods.comparePassword = function comparePassword(password, callback) {
+    bcrypt.compare(password, this.password, callback);
+};
+
+
 const User = mongoose.model('User', userSchema);
 export default User;

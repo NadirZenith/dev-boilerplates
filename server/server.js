@@ -96,7 +96,9 @@ app.use(flash());
 // load passport strategies
 import localFormSignupStrategy from './passport/local-form-signup'
 import localFormLoginStrategy from './passport/local-form-login'
+import localApiLoginStrategy from './passport/local-api-login'
 // const localLoginStrategy = require('./server/passport/local-login');
+passport.use('local-api-login', localApiLoginStrategy);
 passport.use('local-form-signup', localFormSignupStrategy);
 passport.use('local-form-login', localFormLoginStrategy);
 // passport.use('local-login', localLoginStrategy);

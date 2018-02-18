@@ -4,11 +4,10 @@ import User from '../app/model/user';
 const router = new Router();
 
 const getMenu = (req) => {
-  let menu = `
-        <a href="${req.baseUrl}/edit">Edit</a> | <a href="/logout">Logout</a> | <a href="/">Home</a>
-    `;
+  let menu = `<a href="${req.baseUrl}/edit">Edit</a> | <a href="/logout">Logout</a> | <a href="/">Home</a>`;
   if (true) {
     menu += ' | <a href="/admin/status">Admin</a>';
+    menu += ' | <a href="/dev/status">Dev</a>';
   }
 
   return menu;

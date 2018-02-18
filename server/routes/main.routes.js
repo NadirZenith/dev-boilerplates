@@ -9,8 +9,11 @@ import dev from './dev';
 import {
   checkAuthentication, checkAuthenticationArea,
 } from '../utils/authentication';
+import authRoutes from './auth';
 
 const router = new Router();
+
+router.use('/auth', authRoutes);
 
 router.use(security);
 
