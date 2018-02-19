@@ -1,13 +1,8 @@
 import jwt from 'jsonwebtoken';
 import LocalStrategy from 'passport-local'
 
+import config from "../config";
 import User from '../app/model/user'
-
-// const jwt = require('jsonwebtoken');
-// const User = require('mongoose').model('User');
-// const PassportLocalStrategy = require('passport-local').Strategy;
-const secret = 'secret';
-
 
 /**
  * Return the Passport Local Strategy object.
@@ -34,11 +29,6 @@ export default new LocalStrategy({
       return done(error);
     }
 
-    // if (!user.validPassword(password)) {
-    //     return done(null, false, {message: 'Incorrect password.'})
-    // }
-    // return done(null, user)
-//----
     // check if a hashed user's password is equal to a value saved in the database
     return user.comparePassword(userData.password, (passwordErr, isMatch) => {
       if (err) { return done(err); }
@@ -55,9 +45,9 @@ export default new LocalStrategy({
       };
 
       // create a token string
-      const token = jwt.sign(payload, secret);
+      const token = jwt.sign(payload, config.security.jwtSecret);
       const data = {
-        name: user.name
+        name: user.local.username
       };
 
       return done(null, token, data);
