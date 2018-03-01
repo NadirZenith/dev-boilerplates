@@ -18,12 +18,13 @@ const SignUpForm = ({
 
       <div className="field-line">
         <TextField
-          label="Name"
-          id="name"
-          name="name"
-          errorText={errors.name}
+          label="Username"
+          id="username"
+          name="username"
+          error={typeof errors.username !== 'undefined'}
+          errorText={errors.username}
           onChange={onChange}
-          value={user.name}
+          value={user.username}
         />
       </div>
 
@@ -32,6 +33,7 @@ const SignUpForm = ({
           label="Email"
           id="email"
           name="email"
+          error={typeof errors.email !== 'undefined'}
           errorText={errors.email}
           onChange={onChange}
           value={user.email}
@@ -44,8 +46,9 @@ const SignUpForm = ({
           type="password"
           id="password"
           name="password"
-          onChange={onChange}
+          error={typeof errors.password !== 'undefined'}
           errorText={errors.password}
+          onChange={onChange}
           value={user.password}
         />
       </div>

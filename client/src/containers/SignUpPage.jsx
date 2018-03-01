@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SignUpForm from '../components/SignUpForm.jsx';
+import SignUpForm from '../components/SignUpForm';
 
 
 class SignUpPage extends React.Component {
@@ -15,9 +15,9 @@ class SignUpPage extends React.Component {
     this.state = {
       errors: {},
       user: {
+        username: '',
         email: '',
-        name: '',
-        password: ''
+        password: '',
       }
     };
 
@@ -33,12 +33,12 @@ class SignUpPage extends React.Component {
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
-
+    console.log(event)
     // create a string for an HTTP body message
-    const name = encodeURIComponent(this.state.user.name);
+    const username = encodeURIComponent(this.state.user.username);
     const email = encodeURIComponent(this.state.user.email);
     const password = encodeURIComponent(this.state.user.password);
-    const formData = `name=${name}&email=${email}&password=${password}`;
+    const formData = `username=${username}&email=${email}&password=${password}`;
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
@@ -78,9 +78,10 @@ class SignUpPage extends React.Component {
    *
    * @param {object} event - the JavaScript event object
    */
-  changeUser(event) {
+  changeUser(value, event) {
+    // console.log(arguments)
 
-    return
+    // return
     const field = event.target.name;
     const user = this.state.user;
     user[field] = event.target.value;

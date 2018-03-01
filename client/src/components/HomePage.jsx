@@ -3,17 +3,14 @@ import { Card, CardTitle, CardText } from 'react-md';
 import Auth from '../modules/Auth';
 
 const Greeting = (props) => {
-  if (!props.isLoggedIn) {
-    return (<CardText
-      style={{ fontSize: '16px', color: 'red' }}
-    >
-      You are not logged in.
-            </CardText>);
-  }
+  const data = (!props.isLoggedIn)
+    ? { message: 'You are not logged in.', color: 'red' }
+    : { message: 'Welcome! You are logged in.', color: 'green' };
 
-  return (<CardText style={{ fontSize: '16px', color: 'green' }}>
-    Welcome! You are logged in.
-          </CardText>);
+  return (
+    <CardText style={{ fontSize: '16px', color: data.color }}>
+      {data.message}
+    </CardText>);
 };
 
 class HomePage extends React.Component {
@@ -25,7 +22,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <Card className="container">
-        <CardTitle title="React Application" subtitle="This is the home page." />
+        <CardTitle title="Dev Boilerplates" subtitle="This is the home page." />
         <Greeting isLoggedIn={Auth.isUserAuthenticated()} />
       </Card>
     );

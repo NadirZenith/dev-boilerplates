@@ -9,7 +9,7 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import {FontIcon, ListItem} from 'react-md'
+import { FontIcon, ListItem } from 'react-md';
 
 
 // import Base from './components/Base.jsx';
@@ -24,16 +24,16 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props => (
-    Auth.isUserAuthenticated() ? (
-      <Component {...props} {...rest} />
-    ) : (
-      <Redirect to={{
-        pathname: '/',
-        state: { from: props.location },
-      }}
-      />
-    )
-  )}
+            Auth.isUserAuthenticated() ? (
+              <Component {...props} {...rest} />
+            ) : (
+              <Redirect to={{
+                  pathname: '/',
+                  state: { from: props.location },
+                }}
+              />
+            )
+        )}
   />
 );
 
@@ -41,16 +41,16 @@ const LoggedOutRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props => (
-    Auth.isUserAuthenticated() ? (
-      <Redirect to={{
-        pathname: '/',
-        state: { from: props.location },
-      }}
-      />
-    ) : (
-      <Component {...props} {...rest} />
-    )
-  )}
+            Auth.isUserAuthenticated() ? (
+              <Redirect to={{
+                  pathname: '/',
+                  state: { from: props.location },
+                }}
+              />
+            ) : (
+              <Component {...props} {...rest} />
+            )
+        )}
   />
 );
 
@@ -59,7 +59,7 @@ const PropsRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props => (
       <Component {...props} {...rest} />
-  )}
+        )}
   />
 );
 
@@ -86,20 +86,20 @@ class Main extends Component {
       <Router>
         <div>
           <div className="top-bar">
-            <div className="top-bar-left">
-              <Link to="/">React App</Link>
-            </div>
+            {/*<div className="top-bar-left">*/}
+              {/*<Link to="/">Dev Boilerplates</Link>*/}
+            {/*</div>*/}
             {this.state.authenticated ? (
-              <div className="top-bar-right">
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/logout">Log out</Link>
-              </div>
-              ) : (
+                <div className="top-bar-right">
+                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/logout">Log out</Link>
+                </div>
+            ) : (
                 <div className="top-bar-right">
                   <Link to="/login">Log in</Link>
                   <Link to="/signup">Sign up</Link>
                 </div>
-              )}
+            )}
             <FontIcon>bookmark</FontIcon>
           </div>
 
@@ -109,12 +109,16 @@ class Main extends Component {
             component={HomePage}
             toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()}
           />
-           <PrivateRoute path="/dashboard" component={DashboardPage} />
-           <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
-           <LoggedOutRoute path="/signup" component={SignUpPage} />
-           <Route path="/logout" component={LogoutFunction} />
-        </div>
+          <PrivateRoute path="/dashboard" component={DashboardPage} />
+          <LoggedOutRoute
+            path="/login"
+            component={LoginPage}
+            toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()}
+          />
+          <LoggedOutRoute path="/signup" component={SignUpPage} />
+          <Route path="/logout" component={LogoutFunction} />
 
+        </div>
       </Router>
     );
   }

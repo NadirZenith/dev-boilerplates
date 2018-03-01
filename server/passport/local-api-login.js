@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import LocalStrategy from 'passport-local'
+import LocalStrategy from 'passport-local';
 
-import config from "../config";
-import User from '../app/model/user'
+import config from '../config';
+import User from '../app/model/user';
 
 /**
  * Return the Passport Local Strategy object.
@@ -11,11 +11,11 @@ export default new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   session: false,
-  passReqToCallback: true
+  passReqToCallback: true,
 }, (req, email, password, done) => {
   const userData = {
     email: email.trim(),
-    password: password.trim()
+    password: password.trim(),
   };
 
   // find a user by email address
@@ -41,13 +41,13 @@ export default new LocalStrategy({
       }
 
       const payload = {
-        sub: user._id
+        sub: user._id,
       };
 
       // create a token string
       const token = jwt.sign(payload, config.security.jwtSecret);
       const data = {
-        name: user.local.username
+        name: user.local.username,
       };
 
       return done(null, token, data);

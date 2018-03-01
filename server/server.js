@@ -15,7 +15,11 @@ import bodyParser from 'body-parser'; // express middleware request parser
 import config from '../config/webpack.config.dev';
 import serverConfig from './config';
 import mainRoutes from './routes/main.routes';
-import User from "./app/model/user"
+import localFormSignupStrategy from './passport/local-form-signup';
+import localFormLoginStrategy from './passport/local-form-login';
+import localApiLoginStrategy from './passport/local-api-login';
+import localApiSignupStrategy from './passport/local-api-signup';
+import User from './app/model/user';
 
 // Express --------------------------------------------
 const app = Express();
@@ -92,16 +96,11 @@ app.use(session(sess));
 app.use(flash());
 
 // security -------------------------------------------
-// require('./app/config/passport');
 // load passport strategies
-import localFormSignupStrategy from './passport/local-form-signup'
-import localFormLoginStrategy from './passport/local-form-login'
-import localApiLoginStrategy from './passport/local-api-login'
-// const localLoginStrategy = require('./server/passport/local-login');
+passport.use('local-api-signup', localApiSignupStrategy);
 passport.use('local-api-login', localApiLoginStrategy);
 passport.use('local-form-signup', localFormSignupStrategy);
 passport.use('local-form-login', localFormLoginStrategy);
-// passport.use('local-login', localLoginStrategy);
 
 passport.serializeUser((user, done) => {
   // done(null, user.local.email);

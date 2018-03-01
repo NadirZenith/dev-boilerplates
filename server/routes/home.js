@@ -4,7 +4,7 @@ import { base } from '../utils/html';
 const router = new Router();
 
 // ------------------------------------
-router.route('/').get((req, res) => {
+router.route('*').get((req, res) => {
   res.send(base());
 });
 

@@ -17,6 +17,11 @@ function validateSignupForm(payload) {
   let isFormValid = true;
   let message = '';
 
+  if (!payload || typeof payload.username !== 'string' || payload.username.trim().length === 0) {
+    isFormValid = false;
+    errors.usernname = 'Please provide your username.';
+  }
+
   if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
     isFormValid = false;
     errors.email = 'Please provide a correct email address.';
@@ -27,11 +32,6 @@ function validateSignupForm(payload) {
     errors.password = 'Password must have at least 8 characters.';
   }
 
-  if (!payload || typeof payload.name !== 'string' || payload.name.trim().length === 0) {
-    isFormValid = false;
-    errors.name = 'Please provide your name.';
-  }
-
   if (!isFormValid) {
     message = 'Check the form for errors.';
   }
@@ -39,7 +39,7 @@ function validateSignupForm(payload) {
   return {
     success: isFormValid,
     message,
-    errors
+    errors,
   };
 }
 
@@ -72,47 +72,47 @@ function validateLoginForm(payload) {
   return {
     success: isFormValid,
     message,
-    errors
+    errors,
   };
 }
 
-// router.post('/signup', (req, res, next) => {
-//   const validationResult = validateSignupForm(req.body);
-//   if (!validationResult.success) {
-//     return res.status(400).json({
-//       success: false,
-//       message: validationResult.message,
-//       errors: validationResult.errors
-//     });
-//   }
-//
-//
-//   return passport.authenticate('local-signup', (err) => {
-//     if (err) {
-//       if (err.name === 'MongoError' && err.code === 11000) {
-//         // the 11000 Mongo code is for a duplication email error
-//         // the 409 HTTP status code is for conflict error
-//         return res.status(409).json({
-//           success: false,
-//           message: 'Check the form for errors.',
-//           errors: {
-//             email: 'This email is already taken.'
-//           }
-//         });
-//       }
-//
-//       return res.status(400).json({
-//         success: false,
-//         message: 'Could not process the form.'
-//       });
-//     }
-//
-//     return res.status(200).json({
-//       success: true,
-//       message: 'You have successfully signed up! Now you should be able to log in.'
-//     });
-//   })(req, res, next);
-// });
+router.post('/signup', (req, res, next) => {
+  const validationResult = validateSignupForm(req.body);
+  if (!validationResult.success) {
+    return res.status(400).json({
+      success: false,
+      message: validationResult.message,
+      errors: validationResult.errors
+    });
+  }
+
+  return passport.authenticate('local-api-signup', (err) => {
+    if (err) {
+      if (err.name === 'MongoError' && err.code === 11000) {
+        // the 11000 Mongo code is for a duplication email error
+        // the 409 HTTP status code is for conflict error
+        return res.status(409).json({
+          success: false,
+          message: 'Check the form for errors.',
+          errors: {
+            email: 'This email is already taken.'
+          }
+        });
+      }
+
+      console.log(err)
+      return res.status(400).json({
+        success: false,
+        message: 'Could not process the form.'
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'You have successfully signed up! Now you should be able to log in.'
+    });
+  })(req, res, next);
+});
 
 router.post('/login', (req, res, next) => {
   const validationResult = validateLoginForm(req.body);

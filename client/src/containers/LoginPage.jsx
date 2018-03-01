@@ -12,26 +12,26 @@ class LoginPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    const storedMessage = localStorage.getItem('successMessage');
-    let successMessage = '';
-
-    if (storedMessage) {
-      successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
-    }
+    // const storedMessage = localStorage.getItem('successMessage');
+    // let successMessage = '';
+    //
+    // if (storedMessage) {
+    //   successMessage = storedMessage;
+    //   localStorage.removeItem('successMessage');
+    // }
 
     // set the initial component state
     this.state = {
       errors: {},
-      successMessage,
+      // successMessage,
       user: {
         email: '',
-        password: ''
-      }
+        password: '',
+      },
     };
 
     // this.processForm = this.processForm.bind(this);
-    // this.changeUser = this.changeUser.bind(this);
+    this.changeUser = this.changeUser.bind(this);
   }
 
   /**
@@ -40,7 +40,6 @@ class LoginPage extends React.Component {
    * @param {object} event - the JavaScript event object
    */
   processForm =(event) => {
-    alert('processForm')
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
@@ -79,7 +78,7 @@ class LoginPage extends React.Component {
         errors.summary = xhr.response.message;
 
         this.setState({
-          errors
+          errors,
         });
       }
     });
@@ -91,10 +90,7 @@ class LoginPage extends React.Component {
    *
    * @param {object} event - the JavaScript event object
    */
-  changeUser(event) {
-    console.log(event)
-    console.log(this)
-    console.log(arguments)
+  changeUser(value, event) {
     const field = event.target.name;
     const user = this.state.user;
     user[field] = event.target.value;
@@ -111,9 +107,9 @@ class LoginPage extends React.Component {
     return (
       <LoginForm
         onSubmit={this.processForm}
-        // onChange={this.changeUser}
+        onChange={this.changeUser}
         errors={this.state.errors}
-        successMessage={this.state.successMessage}
+        // successMessage={this.state.successMessage}
         user={this.state.user}
       />
     );

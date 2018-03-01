@@ -5,9 +5,9 @@ import { Card, CardText, Button, TextField } from 'react-md';
 
 const LoginForm = ({
   onSubmit,
-  // onChange,
+  onChange,
   errors,
-  successMessage,
+  // successMessage,
   user,
   toggleAuthenticateStatus
 }) => (
@@ -15,7 +15,7 @@ const LoginForm = ({
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Login</h2>
 
-      {successMessage && <p className="success-message">{successMessage}</p>}
+      {/*{successMessage && <p className="success-message">{successMessage}</p>}*/}
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
       <div className="field-line">
@@ -24,9 +24,10 @@ const LoginForm = ({
           placeholder="jonh.doe@acme.com"
           id="email"
           name="email"
+          error={typeof errors.email !== 'undefined'}
           errorText={errors.email}
-          // onChange={onChange}
-          // value={user.email}
+          onChange={onChange}
+          value={user.email}
         />
       </div>
 
@@ -36,9 +37,10 @@ const LoginForm = ({
           type="password"
           id="password"
           name="password"
-          // onChange={onChange}
+          error={typeof errors.password !== 'undefined'}
           errorText={errors.password}
-          // value={user.password}
+          onChange={onChange}
+          value={user.password}
         />
       </div>
 
@@ -53,9 +55,9 @@ const LoginForm = ({
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  // onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  successMessage: PropTypes.string.isRequired,
+  // successMessage: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 };
 

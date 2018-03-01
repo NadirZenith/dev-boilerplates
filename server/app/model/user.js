@@ -6,8 +6,8 @@ import bcrypt from 'bcrypt';
 // define the schema for our user model
 const userSchema = mongoose.Schema({
   local: {
-    username: { type: String, unique: true, required: false },
-    email: { type: String, unique: true, required: true },
+    username: {type: String, unique: true, required: true},
+    email: {type: String, unique: true, required: true},
     password: String,
   },
   facebook: {
@@ -29,19 +29,18 @@ const userSchema = mongoose.Schema({
     name: String,
   },
 
-});
+})
 
 // methods ======================
 // generating a hash
 userSchema.methods.generateHash = function (password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
+}
 
 // checking if password is valid
 userSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.local.password);
 };
-
 
 
 /**
@@ -50,37 +49,41 @@ userSchema.methods.validPassword = function (password) {
  * @param {string} password
  * @returns {object} callback
  */
-userSchema.methods.comparePassword = function comparePassword(password, callback) {
-// UserSchema.methods.comparePassword = function comparePassword(password, callback) {
-    bcrypt.compare(password, this.local.password, callback);
+userSchema.methods.comparePassword = function (password, callback) {
+  bcrypt.compare(password, this.local.password, callback);
 };
 
 
-// /**
-//  * The pre-save hook method.
-//  * @todo implement
-//  */
-// UserSchema.pre('save', function saveHook(next) {
-//     const user = this;
-//
-//     // proceed further only if the password is modified or the user is new
-//     if (!user.isModified('password')) return next();
-//
-//
-//     return bcrypt.genSalt((saltError, salt) => {
-//         if (saltError) { return next(saltError); }
-//
-//         return bcrypt.hash(user.password, salt, (hashError, hash) => {
-//             if (hashError) { return next(hashError); }
-//
-//             // replace a password string with hash value
-//             user.password = hash;
-//
-//             return next();
-//         });
-//     });
-// });
+/**
+ * The pre-save hook method.
+ * @todo implement
+ */
+userSchema.pre('save', function saveHook(next) {
+  console.log('pre save');
+  const user = this
+
+  // proceed further only if the password is modified or the user is new
+  if (!user.isModified('local.password')) return next()
 
 
-const User = mongoose.model('User', userSchema);
-export default User;
+  return bcrypt.genSalt((saltError, salt) => {
+    if (saltError) {
+      return next(saltError)
+    }
+
+    return bcrypt.hash(user.local.password, salt, (hashError, hash) => {
+      if (hashError) {
+        return next(hashError)
+      }
+
+      // replace a password string with hash value
+      user.local.password = hash
+
+      return next()
+    })
+  })
+})
+
+
+const User = mongoose.model('User', userSchema)
+export default User
