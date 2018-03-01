@@ -19,7 +19,7 @@ function validateSignupForm(payload) {
 
   if (!payload || typeof payload.username !== 'string' || payload.username.trim().length === 0) {
     isFormValid = false;
-    errors.usernname = 'Please provide your username.';
+    errors.username = 'Please provide your username.';
   }
 
   if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
@@ -88,23 +88,22 @@ router.post('/signup', (req, res, next) => {
 
   return passport.authenticate('local-api-signup', (err) => {
     if (err) {
+      let status = 400; //bad request
+      const response = {success: false, message: 'Could not process the form.', errors: {}};
+      if (err.name === 'UsernameAlreadyTaken' ) {
+        status = 409; // conflict error
+        response.message = 'Check the form for errors'
+        response.errors.username = 'This username is already taken.'
+      }
       if (err.name === 'MongoError' && err.code === 11000) {
         // the 11000 Mongo code is for a duplication email error
         // the 409 HTTP status code is for conflict error
-        return res.status(409).json({
-          success: false,
-          message: 'Check the form for errors.',
-          errors: {
-            email: 'This email is already taken.'
-          }
-        });
-      }
+        status = 409; // conflict error
+        response.message = 'Check the form for errors'
+        response.errors.email = 'This email is already taken.'
 
-      console.log(err)
-      return res.status(400).json({
-        success: false,
-        message: 'Could not process the form.'
-      });
+      }
+      return res.status(status).json(response)
     }
 
     return res.status(200).json({
@@ -123,7 +122,6 @@ router.post('/login', (req, res, next) => {
       errors: validationResult.errors
     });
   }
-
 
   return passport.authenticate('local-api-login', (err, token, userData) => {
     if (err) {

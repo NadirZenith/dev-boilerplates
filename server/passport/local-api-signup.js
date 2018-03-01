@@ -22,10 +22,24 @@ export default new LocalStrategy({
     },
   };
 
-  const newUser = new User(userData);
-  newUser.save((err) => {
-    if (err) { return done(err); }
 
-    return done(null);
-  });
+    User.findOne({ 'local.username': userData.local.username }, (err, user) => {
+      if (err) { return done(err); }
+
+      if (user) {
+          const error = new Error('Username already taken');
+          error.name = 'UsernameAlreadyTaken';
+
+          return done(error);
+      }
+
+      const newUser = new User(userData);
+      newUser.save((err) => {
+        if (err) { return done(err); }
+
+        return done(null);
+      });
+
+    });
+
 });
