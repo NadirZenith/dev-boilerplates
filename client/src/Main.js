@@ -5,63 +5,22 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect,
-  withRouter,
 } from 'react-router-dom';
 
-import { FontIcon, ListItem } from 'react-md';
-
+import {
+  FontIcon,
+  Button,
+  CardActions,
+} from 'react-md';
 
 // import Base from './components/Base.jsx';
 import HomePage from './components/HomePage';
-import LoginPage from './containers/LoginPage.jsx';
-import LogoutFunction from './containers/LogoutFunction.jsx';
-import SignUpPage from './containers/SignUpPage.jsx';
+import LoginPage from './containers/LoginPage';
+import LogoutFunction from './containers/LogoutFunction';
+import SignUpPage from './containers/SignUpPage';
 import DashboardPage from './containers/DashboardPage';
 import Auth from './modules/Auth';
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => (
-            Auth.isUserAuthenticated() ? (
-              <Component {...props} {...rest} />
-            ) : (
-              <Redirect to={{
-                  pathname: '/',
-                  state: { from: props.location },
-                }}
-              />
-            )
-        )}
-  />
-);
-
-const LoggedOutRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => (
-            Auth.isUserAuthenticated() ? (
-              <Redirect to={{
-                  pathname: '/',
-                  state: { from: props.location },
-                }}
-              />
-            ) : (
-              <Component {...props} {...rest} />
-            )
-        )}
-  />
-);
-
-const PropsRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => (
-      <Component {...props} {...rest} />
-        )}
-  />
-);
+import { PropsRoute, PrivateRoute, LoggedOutRoute } from './components/Routes';
 
 class Main extends Component {
   constructor(props) {
@@ -86,20 +45,26 @@ class Main extends Component {
       <Router>
         <div>
           <div className="top-bar">
-            {/*<div className="top-bar-left">*/}
-              {/*<Link to="/">Dev Boilerplates</Link>*/}
-            {/*</div>*/}
-            {this.state.authenticated ? (
+            <CardActions className="md-cell md-cell--12">
+              <Link to="/" className="md-cell--right">
+                <Button raised>Home</Button>
+              </Link>
+              {this.state.authenticated ? (
                 <div className="top-bar-right">
                   <Link to="/dashboard">Dashboard</Link>
                   <Link to="/logout">Log out</Link>
                 </div>
-            ) : (
+              ) : (
                 <div className="top-bar-right">
-                  <Link to="/login">Log in</Link>
-                  <Link to="/signup">Sign up</Link>
+                  <Link to="/login" className="md-cell--right">
+                    <Button raised secondary>Login</Button>
+                  </Link>
+                  <Link to="/signup" className="md-cell--right">
+                    <Button raised primary>Register</Button>
+                  </Link>
                 </div>
-            )}
+              )}
+            </CardActions>
             <FontIcon>bookmark</FontIcon>
           </div>
 
