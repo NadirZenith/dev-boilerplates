@@ -12,14 +12,14 @@ import flash from 'connect-flash';
 import morgan from 'morgan'; // express middleware log
 import bodyParser from 'body-parser'; // express middleware request parser
 
-import config from '../config/webpack.config.dev';
-import serverConfig from './config';
+import webpackConfig from '../config/webpack.config.dev';
+import config from './config';
 import mainRoutes from './routes/main.routes';
 import localFormSignupStrategy from './passport/local-form-signup';
 import localFormLoginStrategy from './passport/local-form-login';
 import localApiLoginStrategy from './passport/local-api-login';
 import localApiSignupStrategy from './passport/local-api-signup';
-import User from './app/model/user';
+import User, {serializeUser, deserializeUser} from './app/model/user';
 
 // Express --------------------------------------------
 const app = Express();
@@ -39,8 +39,8 @@ app.use(bodyParser.json());
 // ------ dev
 // Webpack Requirements
 // Run Webpack dev server in development mode
-if (serverConfig.env === 'development') {
-  console.log(serverConfig);
+if (config.env === 'development') {
+  console.log(config);
   // cors, before other middleware to avoid cors errors
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -51,10 +51,10 @@ if (serverConfig.env === 'development') {
     next();
   });
 
-  const compiler = webpack(config);
+  const compiler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
-    publicPath: config.output.publicPath,
+    publicPath: webpackConfig.output.publicPath,
   }));
   app.use(webpackHotMiddleware(compiler));
 
@@ -64,7 +64,7 @@ if (serverConfig.env === 'development') {
 
 
 // db --------------------------------------------
-mongoose.connect(serverConfig.db.uri, { useMongoClient: true }, (error) => {
+mongoose.connect(config.db.uri, { useMongoClient: true }, (error) => {
   if (error) {
     console.log('-------------------- MONGO ERROR -------------------');
     console.log(error);
@@ -72,12 +72,11 @@ mongoose.connect(serverConfig.db.uri, { useMongoClient: true }, (error) => {
 });
 mongoose.Promise = global.Promise;
 
-
 // session --------------------------------------------
+// session in mongo db
 const MongoStore = require('connect-mongo')(session);
-
 const sess = {
-  secret: 'keyboard cat',
+  secret: config.security.session.secret,
   resave: false,
   saveUninitialized: true,
   cookie: {},
@@ -85,8 +84,9 @@ const sess = {
 };
 app.use(session(sess));
 
+// session in file
 // const sessFile = {
-//   secret: 'keyboard cat',
+//   secret: config.security.session.secret,
 //   resave: false,
 //   saveUninitialized: true,
 // };
@@ -102,25 +102,8 @@ passport.use('local-api-login', localApiLoginStrategy);
 passport.use('local-form-signup', localFormSignupStrategy);
 passport.use('local-form-login', localFormLoginStrategy);
 
-passport.serializeUser((user, done) => {
-  // done(null, user.local.email);
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  User.findOne({ _id: id }, (err, user) => {
-    if (err) {
-      return done(err);
-    }
-    //
-    if (!user) {
-      // return done (true, false)
-      return done('no match serializing');
-    }
-
-    return done(null, { username: user.local.username, id: user._id });
-  });
-});
+passport.serializeUser(serializeUser);
+passport.deserializeUser(deserializeUser);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -131,8 +114,8 @@ app.use(passport.session());
 app.use(mainRoutes);
 
 // Express start ----------------------------------
-app.listen(serverConfig.port, () => {
-  console.log(`Example app listening on port ${serverConfig.port}!`);
+app.listen(config.port, () => {
+  console.log(`Example app listening on port ${config.port}!`);
 });
 
 export default app;

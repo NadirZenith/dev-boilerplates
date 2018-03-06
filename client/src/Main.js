@@ -51,8 +51,12 @@ class Main extends Component {
               </Link>
               {this.state.authenticated ? (
                 <div className="top-bar-right">
-                  <Link to="/dashboard">Dashboard</Link>
-                  <Link to="/logout">Log out</Link>
+                  <Link to="/dashboard">
+                    <Button raised secondary>Dashboard</Button>
+                  </Link>
+                  <Link to="/logout">
+                      <Button raised primary>Log out</Button>
+                  </Link>
                 </div>
               ) : (
                 <div className="top-bar-right">
