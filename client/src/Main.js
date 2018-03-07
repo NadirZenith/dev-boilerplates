@@ -5,8 +5,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
+  Switch
 } from 'react-router-dom';
-
 import {
   FontIcon,
   Button,
@@ -71,22 +71,23 @@ class Main extends Component {
             </CardActions>
             <FontIcon>bookmark</FontIcon>
           </div>
+          <Switch key={location.key}>
+            <PropsRoute
+              exact
+              path="/"
+              component={HomePage}
+              toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()}
+            />
+            <PrivateRoute path="/dashboard" component={DashboardPage} />
+            <LoggedOutRoute
+              path="/login"
+              component={LoginPage}
+              toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()}
+            />
+            <LoggedOutRoute path="/signup" component={SignUpPage} />
+            <Route path="/logout" component={LogoutFunction} />
 
-          <PropsRoute
-            exact
-            path="/"
-            component={HomePage}
-            toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()}
-          />
-          <PrivateRoute path="/dashboard" component={DashboardPage} />
-          <LoggedOutRoute
-            path="/login"
-            component={LoginPage}
-            toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()}
-          />
-          <LoggedOutRoute path="/signup" component={SignUpPage} />
-          <Route path="/logout" component={LogoutFunction} />
-
+          </Switch>
         </div>
       </Router>
     );
